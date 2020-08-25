@@ -13,7 +13,7 @@ devices = device_lib.list_local_devices()
 flags = tf.app.flags
 flags.DEFINE_integer("seed",111, "Random seed (Def: 111).")
 flags.DEFINE_integer("epoch", 150, "Epochs to train (Def: 150).")
-flags.DEFINE_integer("batch_size", 150, "Batch size (Def: 150).")
+flags.DEFINE_integer("batch_size", 100, "Batch size (Def: 150).")
 flags.DEFINE_integer("save_freq", 50, "Batch save freq (Def: 50).")
 flags.DEFINE_integer("canvas_size", 2**14, "Canvas size (Def: 2^14).")
 flags.DEFINE_integer("denoise_epoch", 5, "Epoch where noise in disc is "
@@ -30,14 +30,14 @@ flags.DEFINE_boolean("bias_D_conv", False,
 flags.DEFINE_float("denoise_lbound", 0.01, "Min noise std to be still alive (Def: 0.001)")
 flags.DEFINE_float("noise_decay", 0.7, "Decay rate of noise std (Def: 0.7)")
 flags.DEFINE_float("d_label_smooth", 0.25, "Smooth factor in D (Def: 0.25)")
-flags.DEFINE_float("init_noise_std", 0.5, "Init noise std (Def: 0.5)")
+flags.DEFINE_float("init_noise_std", 0, "Init noise std (Def: 0.5)")
 flags.DEFINE_float("init_l1_weight", 100., "Init L1 lambda (Def: 100)")
 flags.DEFINE_integer("z_dim", 256, "Dimension of input noise to G (Def: 256).")
 flags.DEFINE_integer("z_depth", 256, "Depth of input noise to G (Def: 256).")
-flags.DEFINE_string("save_path", "segan_results", "Path to save out model "
+flags.DEFINE_string("save_path", "segan_v1.1", "Path to save out model "
                                                    "files. (Def: dwavegan_model"
                                                    ").")
-flags.DEFINE_string("g_nl", "leaky", "Type of nonlinearity in G: leaky or prelu. (Def: leaky).")
+flags.DEFINE_string("g_nl", "prelu", "Type of nonlinearity in G: leaky or prelu. (Def: leaky).")
 flags.DEFINE_string("model", "gan", "Type of model to train: gan or ae. (Def: gan).")
 flags.DEFINE_string("deconv_type", "deconv", "Type of deconv method: deconv or "
                                              "nn_deconv (Def: deconv).")
@@ -55,7 +55,7 @@ flags.DEFINE_string("e2e_dataset", "data/segan.tfrecords", "TFRecords"
                                                           "segan.tfrecords.")
 flags.DEFINE_string("save_clean_path", "test_clean_results", "Path to save clean utts")
 flags.DEFINE_string("test_wav", None, "name of test wav (it won't train)")
-flags.DEFINE_string("weights", None, "Weights file")
+flags.DEFINE_string("weights", "SEGAN-41700", "Weights file")
 FLAGS = flags.FLAGS
 
 def pre_emph_test(coeff, canvas_size):

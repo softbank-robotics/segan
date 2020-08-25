@@ -182,3 +182,25 @@ To uninstall the CUDA Toolkit, run the uninstall script in /usr/local/cuda-8.0/b
 
 ## そうするとnvidia-smiではなく、nvcc -cでCUDAが確認できるようになった。
 
+# CPUで処理が回っている問題
+
+以下のエラーメッセージが表示されます。これはTensorflowが期待するドライバーがインストールされていないことを意味します。
+※正確にはTensroflowが利用するCuda Toolkitが利用するnVidia GPUドライバー
+
+E tensorflow/stream_executor/cuda/cuda_diagnostics.cc:303] kernel version 418.87.1 does not match DSO version 450.51.5 -- cannot find working devices in this configuration
+
+ドライバーをアップデートして解決できます。
+上記の場合ではkernelのversion 450.51.5が求められているので、下記のコマンドでインストールしてマシンを再起動することで解決できます。
+
+sudo apt purge libcuda1-450したら直った？？？
+
+I tensorflow/stream_executor/dso_loader.cc:119] Couldn't open CUDA library libcuda.so.1. LD_LIBRARY_PATH: /usr/local/cuda-8.0/lib64:/home/tadashi/ros/devel/lib:/opt/ros/kinetic/lib:/opt/ros/kinetic/lib/x86_64-linux-gnu:/usr/local/lib
+
+I tensorflow/stream_executor/cuda/cuda_diagnostics.cc:189] libcuda reported version is: Not found: was unable to find libcuda.so DSO loaded into this program
+
+上記はデているが、エラーがではない？
+
+
+## まだ下記エラーが出る。
+
+E tensorflow/stream_executor/cuda/cuda_driver.cc:509] failed call to cuInit: CUresult(804)
